@@ -6,16 +6,19 @@ import ImageViewing from 'react-native-image-viewing';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useStore, Product } from '../store/useStore';
 import { theme } from '../theme';
+import { useToast } from '../components/Toast';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { width } = Dimensions.get('window');
 
 const GenericProductView = ({ product, onImagePress, onAddToCart }: { product: Product, onImagePress: () => void, onAddToCart: (opt: string) => void }) => {
     const [isNoteInputVisible, setNoteInputVisible] = useState(false);
     const [noteText, setNoteText] = useState('');
+    const { showToast } = useToast();
 
     const handleAddNote = () => {
         if (!noteText.trim()) {
-            Alert.alert('Error', 'Please enter a note');
+            showToast('Please enter a note', 'error');
             return;
         }
         onAddToCart(`Note: ${noteText}`);
@@ -101,9 +104,10 @@ const GenericProductView = ({ product, onImagePress, onAddToCart }: { product: P
 
 const ProductDetailScreen = () => {
     const route = useRoute<any>();
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
     const { product, groupName } = route.params;
     const store = useStore();
+    const { showToast } = useToast();
 
     const brand = store.brands.find(b => b.groupName === groupName);
     const products = brand ? brand.products : [product];
@@ -122,7 +126,7 @@ const ProductDetailScreen = () => {
             product: item,
             selection: option
         });
-        Alert.alert('Added to Cart', `${item.productName}\nSelection: ${option}`);
+        showToast(`Added ${item.productName} (${option})`, 'success');
     };
 
     return (

@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Platform, Linking } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Platform, Linking, Modal, TextInput } from 'react-native';
 import { useStore, CartItem } from '../store/useStore';
 import { generatePDF as convertToPDF } from 'react-native-html-to-pdf';
 import Share from 'react-native-share';
 import { theme } from '../theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useToast } from '../components/Toast';
 
 const CartScreen = () => {
     const { cart, removeFromCart } = useStore();
+    const { showToast } = useToast();
+    const [isWhatsAppModalVisible, setWhatsAppModalVisible] = useState(false);
+    const [userName, setUserName] = useState('');
+    const [userPhone, setUserPhone] = useState('');
 
     const generatePDF = async () => {
         if (cart.length === 0) {
-            Alert.alert('Empty Cart', 'Add items first');
+            showToast('Your cart is empty!', 'error');
             return;
         }
 
@@ -87,17 +92,27 @@ const CartScreen = () => {
 
         } catch (error) {
             console.error(error);
-            Alert.alert('Error', 'Failed to generate or share PDF. Please check permissions.');
+            showToast('Failed to generate PDF', 'error');
         }
     };
 
-    const shareText = async () => {
+    const initiateWhatsAppShare = () => {
         if (cart.length === 0) {
-            Alert.alert('Empty Cart', 'Add items first');
+            showToast('Your cart is empty! Add items first.', 'error');
             return;
         }
+        setWhatsAppModalVisible(true);
+    };
 
-        let message = "*Order Summary*\n------------------\n\n";
+    const confirmWhatsAppShare = async () => {
+        if (!userName.trim() || !userPhone.trim()) {
+            showToast('Please enter your Name and Phone Number', 'error');
+            return;
+        }
+        setWhatsAppModalVisible(false);
+
+        let message = `*Order from ${userName}*\n*Phone:* ${userPhone}\n\n`;
+        message += "*Order Summary*\n------------------\n\n";
         cart.forEach(item => {
             message += `*${item.product.productName}*\n`;
             message += `> ${item.selection}\n\n`;
@@ -112,7 +127,6 @@ const CartScreen = () => {
             if (supported) {
                 await Linking.openURL(url);
             } else {
-                // Fallback to React Native Share if WhatsApp not installed/detected
                 await Share.open({
                     message: message,
                     title: 'Order Summary'
@@ -120,7 +134,6 @@ const CartScreen = () => {
             }
         } catch (err) {
             console.error('Share Error:', err);
-            // Last resort
             await Share.open({
                 message: message,
                 title: 'Order Summary'
@@ -167,11 +180,49 @@ const CartScreen = () => {
                     <Icon name="picture-as-pdf" size={20} color="#fff" style={{ marginRight: 10 }} />
                     <Text style={styles.shareText}>Share PDF</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.shareBtn, { backgroundColor: '#25D366' }]} onPress={shareText}>
+                <TouchableOpacity style={[styles.shareBtn, { backgroundColor: '#25D366' }]} onPress={initiateWhatsAppShare}>
                     <Icon name="chat" size={20} color="#fff" style={{ marginRight: 10 }} />
                     <Text style={styles.shareText}>WhatsApp Text</Text>
                 </TouchableOpacity>
             </View>
+
+            {/* WhatsApp Details Modal */}
+            <Modal
+                visible={isWhatsAppModalVisible}
+                transparent={true}
+                animationType="slide"
+                onRequestClose={() => setWhatsAppModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>Enter Your Details</Text>
+                        <Text style={styles.modalSubtitle}>Please provide your details for the order.</Text>
+
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Your Name"
+                            value={userName}
+                            onChangeText={setUserName}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Phone Number"
+                            keyboardType="phone-pad"
+                            value={userPhone}
+                            onChangeText={setUserPhone}
+                        />
+
+                        <View style={styles.modalButtons}>
+                            <TouchableOpacity style={[styles.modalBtn, styles.cancelBtn]} onPress={() => setWhatsAppModalVisible(false)}>
+                                <Text style={styles.btnTextRaw}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[styles.modalBtn, styles.confirmBtn]} onPress={confirmWhatsAppShare}>
+                                <Text style={[styles.btnTextRaw, { color: '#fff' }]}>Continue to WhatsApp</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 };
@@ -224,7 +275,38 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         elevation: 3
     },
-    shareText: { color: '#fff', fontWeight: 'bold', fontSize: 16 }
+    shareText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
+        padding: 20
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        borderRadius: 16,
+        padding: 24,
+        elevation: 10
+    },
+    modalTitle: { fontSize: 20, fontWeight: 'bold', marginBottom: 8, color: '#333' },
+    modalSubtitle: { fontSize: 14, color: '#666', marginBottom: 20 },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 8,
+        padding: 12,
+        marginBottom: 16,
+        fontSize: 16
+    },
+    modalButtons: { flexDirection: 'row', justifyContent: 'flex-end', gap: 12 },
+    modalBtn: {
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+    },
+    cancelBtn: { backgroundColor: '#eee' },
+    confirmBtn: { backgroundColor: theme.colors.primary },
+    btnTextRaw: { fontWeight: '600', color: '#333' }
 });
 
 export default CartScreen;
