@@ -1,0 +1,509 @@
+'"adb"' is not recognized as an internal or external command,
+operable program or batch file.
+info Launching emulator...
+error Failed to launch emulator. Reason: No emulators found as an output of `emulator -list-avds`.
+warn Please launch an emulator manually or connect a device. Otherwise app may fail to launch.
+info Installing the app...
+> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors
+> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors
+> Task :gradle-plugin:shared:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:shared:compileJava NO-SOURCE
+> Task :gradle-plugin:shared:processResources NO-SOURCE
+> Task :gradle-plugin:shared:classes UP-TO-DATE
+> Task :gradle-plugin:shared:jar UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:settings-plugin:pluginDescriptors UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:processResources UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:jar UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors
+> Task :gradle-plugin:react-native-gradle-plugin:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:react-native-gradle-plugin:pluginDescriptors UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:processResources UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:jar UP-TO-DATE
+
+> Configure project :react-native-reanimated
+Android gradle plugin: 8.6.0
+Gradle: 8.10.2
+
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:generateAutolinkingNewArchitectureFiles
+> Task :app:generateAutolinkingPackageList
+> Task :app:generateCodegenSchemaFromJavaScript SKIPPED
+> Task :app:generateCodegenArtifactsFromSchema SKIPPED
+> Task :app:preBuild
+> Task :app:preDebugBuild
+> Task :app:generateDebugBuildConfig
+> Task :react-native-async-storage_async-storage:generateCodegenSchemaFromJavaScript
+> Task :react-native-async-storage_async-storage:generateCodegenArtifactsFromSchema
+> Task :react-native-async-storage_async-storage:preBuild
+> Task :react-native-async-storage_async-storage:preDebugBuild
+> Task :react-native-async-storage_async-storage:writeDebugAarMetadata
+> Task :react-native-blob-util:generateCodegenSchemaFromJavaScript
+> Task :react-native-blob-util:generateCodegenArtifactsFromSchema
+> Task :react-native-blob-util:preBuild
+> Task :react-native-blob-util:preDebugBuild
+> Task :react-native-fast-image:preBuild UP-TO-DATE
+> Task :react-native-fast-image:preDebugBuild UP-TO-DATE
+> Task :react-native-blob-util:writeDebugAarMetadata
+> Task :react-native-fs:preBuild UP-TO-DATE
+> Task :react-native-fs:preDebugBuild UP-TO-DATE
+> Task :react-native-fast-image:writeDebugAarMetadata
+> Task :react-native-fs:writeDebugAarMetadata
+> Task :react-native-html-to-pdf:generateCodegenSchemaFromJavaScript
+> Task :react-native-html-to-pdf:generateCodegenArtifactsFromSchema
+> Task :react-native-html-to-pdf:preBuild
+> Task :react-native-html-to-pdf:preDebugBuild
+> Task :react-native-html-to-pdf:writeDebugAarMetadata
+> Task :react-native-pager-view:generateCodegenSchemaFromJavaScript
+> Task :react-native-pager-view:generateCodegenArtifactsFromSchema
+> Task :react-native-pager-view:preBuild
+> Task :react-native-pager-view:preDebugBuild
+> Task :react-native-reanimated:assertLatestReactNativeWithNewArchitectureTask SKIPPED
+> Task :react-native-reanimated:assertMinimalReactNativeVersionTask SKIPPED
+> Task :react-native-pager-view:writeDebugAarMetadata
+> Task :react-native-reanimated:generateCodegenSchemaFromJavaScript
+> Task :react-native-reanimated:generateCodegenArtifactsFromSchema
+> Task :react-native-reanimated:prepareReanimatedHeadersForPrefabs
+> Task :react-native-reanimated:prepareWorkletsHeadersForPrefabs
+> Task :react-native-reanimated:preBuild
+> Task :react-native-reanimated:preDebugBuild
+> Task :react-native-reanimated:writeDebugAarMetadata
+> Task :react-native-safe-area-context:generateCodegenSchemaFromJavaScript
+> Task :react-native-safe-area-context:generateCodegenArtifactsFromSchema
+> Task :react-native-safe-area-context:preBuild
+> Task :react-native-safe-area-context:preDebugBuild
+> Task :react-native-safe-area-context:writeDebugAarMetadata
+> Task :react-native-screens:generateCodegenSchemaFromJavaScript
+> Task :react-native-screens:generateCodegenArtifactsFromSchema
+> Task :react-native-screens:preBuild
+> Task :react-native-screens:preDebugBuild
+> Task :react-native-screens:writeDebugAarMetadata
+> Task :react-native-share:generateCodegenSchemaFromJavaScript
+> Task :react-native-share:generateCodegenArtifactsFromSchema
+> Task :react-native-share:preBuild
+> Task :react-native-share:preDebugBuild
+> Task :react-native-share:writeDebugAarMetadata
+> Task :react-native-vector-icons:generateCodegenSchemaFromJavaScript
+> Task :react-native-vector-icons:generateCodegenArtifactsFromSchema
+> Task :react-native-vector-icons:preBuild
+> Task :react-native-vector-icons:preDebugBuild
+> Task :react-native-vector-icons:writeDebugAarMetadata
+> Task :app:generateDebugResValues
+> Task :react-native-async-storage_async-storage:generateDebugResValues
+> Task :app:checkDebugAarMetadata
+> Task :react-native-async-storage_async-storage:generateDebugResources
+> Task :react-native-async-storage_async-storage:packageDebugResources
+> Task :react-native-blob-util:generateDebugResValues
+> Task :react-native-blob-util:generateDebugResources
+> Task :react-native-blob-util:packageDebugResources
+> Task :react-native-fast-image:generateDebugResValues
+> Task :react-native-fast-image:generateDebugResources
+> Task :react-native-fast-image:packageDebugResources
+> Task :react-native-fs:generateDebugResValues
+> Task :react-native-fs:generateDebugResources
+> Task :react-native-fs:packageDebugResources
+> Task :react-native-html-to-pdf:generateDebugResValues
+> Task :react-native-html-to-pdf:generateDebugResources
+> Task :react-native-html-to-pdf:packageDebugResources
+> Task :react-native-pager-view:generateDebugResValues
+> Task :react-native-pager-view:generateDebugResources
+> Task :react-native-pager-view:packageDebugResources
+> Task :react-native-reanimated:generateDebugResValues
+> Task :react-native-reanimated:generateDebugResources
+> Task :react-native-reanimated:packageDebugResources
+> Task :react-native-safe-area-context:generateDebugResValues
+> Task :react-native-safe-area-context:generateDebugResources
+> Task :react-native-safe-area-context:packageDebugResources
+> Task :react-native-screens:generateDebugResValues
+> Task :react-native-screens:generateDebugResources
+> Task :react-native-screens:packageDebugResources
+> Task :react-native-share:generateDebugResValues
+> Task :react-native-share:generateDebugResources
+> Task :react-native-share:packageDebugResources
+> Task :react-native-vector-icons:generateDebugResValues
+> Task :react-native-vector-icons:generateDebugResources
+> Task :react-native-vector-icons:packageDebugResources
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:parseDebugLocalResources
+> Task :react-native-async-storage_async-storage:extractDeepLinksDebug
+> Task :react-native-blob-util:extractDeepLinksDebug
+> Task :react-native-fast-image:extractDeepLinksDebug
+
+> Task :react-native-async-storage_async-storage:processDebugManifest
+package="com.reactnativecommunity.asyncstorage" found in source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\@react-native-async-storage\async-storage\android\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.reactnativecommunity.asyncstorage" from the source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\@react-native-async-storage\async-storage\android\src\main\AndroidManifest.xml.
+
+> Task :react-native-blob-util:processDebugManifest
+package="com.ReactNativeBlobUtil" found in source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-blob-util\android\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.ReactNativeBlobUtil" from the source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-blob-util\android\src\main\AndroidManifest.xml.
+
+> Task :react-native-fs:extractDeepLinksDebug
+
+> Task :react-native-fast-image:processDebugManifest
+package="com.dylanvann.fastimage" found in source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-fast-image\android\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.dylanvann.fastimage" from the source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-fast-image\android\src\main\AndroidManifest.xml.
+
+> Task :react-native-html-to-pdf:extractDeepLinksDebug
+
+> Task :react-native-fs:processDebugManifest
+package="com.rnfs" found in source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-fs\android\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.rnfs" from the source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-fs\android\src\main\AndroidManifest.xml.
+
+> Task :react-native-pager-view:extractDeepLinksDebug
+> Task :react-native-html-to-pdf:processDebugManifest
+> Task :react-native-reanimated:extractDeepLinksDebug
+> Task :react-native-safe-area-context:extractDeepLinksDebug
+> Task :react-native-screens:extractDeepLinksDebug
+> Task :react-native-pager-view:processDebugManifest
+> Task :react-native-reanimated:processDebugManifest
+
+> Task :react-native-safe-area-context:processDebugManifest
+package="com.th3rdwave.safeareacontext" found in source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-safe-area-context\android\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.th3rdwave.safeareacontext" from the source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-safe-area-context\android\src\main\AndroidManifest.xml.
+
+> Task :react-native-share:extractDeepLinksDebug
+> Task :react-native-screens:processDebugManifest
+> Task :react-native-vector-icons:extractDeepLinksDebug
+
+> Task :react-native-share:processDebugManifest
+package="cl.json" found in source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-share\android\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="cl.json" from the source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-share\android\src\main\AndroidManifest.xml.
+
+> Task :react-native-vector-icons:processDebugManifest
+package="com.oblador.vectoricons" found in source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-vector-icons\android\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.oblador.vectoricons" from the source AndroidManifest.xml: C:\Projects\sbe-android\node_modules\react-native-vector-icons\android\src\main\AndroidManifest.xml.
+
+> Task :react-native-async-storage_async-storage:compileDebugLibraryResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :react-native-async-storage_async-storage:parseDebugLocalResources
+> Task :react-native-blob-util:compileDebugLibraryResources
+> Task :react-native-async-storage_async-storage:generateDebugRFile
+> Task :react-native-fast-image:compileDebugLibraryResources
+> Task :react-native-fs:compileDebugLibraryResources
+> Task :react-native-fast-image:parseDebugLocalResources
+> Task :react-native-blob-util:parseDebugLocalResources
+> Task :react-native-fs:parseDebugLocalResources
+> Task :react-native-blob-util:generateDebugRFile
+> Task :react-native-html-to-pdf:compileDebugLibraryResources
+> Task :react-native-fs:generateDebugRFile
+> Task :react-native-html-to-pdf:parseDebugLocalResources
+> Task :react-native-fast-image:generateDebugRFile
+> Task :react-native-pager-view:compileDebugLibraryResources
+> Task :react-native-pager-view:parseDebugLocalResources
+> Task :react-native-reanimated:compileDebugLibraryResources
+> Task :react-native-html-to-pdf:generateDebugRFile
+> Task :react-native-pager-view:generateDebugRFile
+> Task :react-native-reanimated:parseDebugLocalResources
+> Task :react-native-safe-area-context:compileDebugLibraryResources
+> Task :react-native-safe-area-context:parseDebugLocalResources
+> Task :react-native-reanimated:generateDebugRFile
+> Task :react-native-safe-area-context:generateDebugRFile
+> Task :react-native-share:compileDebugLibraryResources
+> Task :react-native-screens:parseDebugLocalResources
+> Task :react-native-vector-icons:compileDebugLibraryResources
+> Task :react-native-share:parseDebugLocalResources
+> Task :react-native-vector-icons:parseDebugLocalResources
+> Task :react-native-async-storage_async-storage:generateDebugBuildConfig
+> Task :react-native-share:generateDebugRFile
+> Task :react-native-async-storage_async-storage:javaPreCompileDebug
+> Task :react-native-blob-util:generateDebugBuildConfig
+> Task :react-native-vector-icons:generateDebugRFile
+> Task :react-native-screens:generateDebugRFile
+> Task :react-native-screens:compileDebugLibraryResources
+
+> Task :react-native-async-storage_async-storage:compileDebugJavaWithJavac
+
+> Task :react-native-blob-util:javaPreCompileDebug
+> Task :react-native-fast-image:generateDebugBuildConfig
+> Task :react-native-async-storage_async-storage:bundleLibCompileToJarDebug
+> Task :app:mergeDebugResources
+
+> Task :react-native-blob-util:compileDebugJavaWithJavac
+
+> Task :react-native-fs:generateDebugBuildConfig
+> Task :react-native-fast-image:javaPreCompileDebug
+> Task :react-native-fs:javaPreCompileDebug
+> Task :react-native-blob-util:bundleLibCompileToJarDebug
+
+> Task :react-native-fast-image:compileDebugJavaWithJavac
+
+> Task :react-native-fast-image:bundleLibCompileToJarDebug
+> Task :app:processDebugResources
+
+> Task :react-native-fs:compileDebugJavaWithJavac
+
+> Task :react-native-html-to-pdf:checkKotlinGradlePluginConfigurationErrors
+> Task :react-native-html-to-pdf:generateDebugBuildConfig
+> Task :react-native-fs:bundleLibCompileToJarDebug
+> Task :react-native-pager-view:checkKotlinGradlePluginConfigurationErrors
+> Task :react-native-html-to-pdf:javaPreCompileDebug
+> Task :react-native-pager-view:generateDebugBuildConfig
+> Task :react-native-pager-view:javaPreCompileDebug
+> Task :react-native-reanimated:generateDebugBuildConfig
+> Task :react-native-reanimated:packageNdkLibs NO-SOURCE
+> Task :react-native-safe-area-context:checkKotlinGradlePluginConfigurationErrors
+> Task :react-native-reanimated:javaPreCompileDebug
+> Task :react-native-safe-area-context:generateDebugBuildConfig
+
+> Task :react-native-reanimated:compileDebugJavaWithJavac
+
+> Task :react-native-reanimated:bundleLibCompileToJarDebug
+> Task :react-native-screens:checkKotlinGradlePluginConfigurationErrors
+> Task :react-native-safe-area-context:javaPreCompileDebug
+> Task :react-native-screens:generateDebugBuildConfig
+
+> Task :react-native-html-to-pdf:compileDebugKotlin
+w: file:///C:/Projects/sbe-android/node_modules/react-native-html-to-pdf/android/src/main/java/android/print/PdfConverter.kt:66:59 'createPrintDocumentAdapter(): PrintDocumentAdapter!' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-html-to-pdf/android/src/main/java/android/print/PdfConverter.kt:146:38 This declaration overrides deprecated member but not marked as deprecated itself. Please add @Deprecated annotation or suppress. See https://youtrack.jetbrains.com/issue/KT-47902 for details
+w: file:///C:/Projects/sbe-android/node_modules/react-native-html-to-pdf/android/src/main/java/com/htmltopdf/HtmlToPdfModule.kt:81:66 Type mismatch: inferred type is String? but String was expected
+w: file:///C:/Projects/sbe-android/node_modules/react-native-html-to-pdf/android/src/main/java/com/htmltopdf/HtmlToPdfModule.kt:83:49 Type mismatch: inferred type is String? but String was expected
+
+> Task :react-native-pager-view:compileDebugKotlin
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/PagerViewViewManager.kt:10:34 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/PagerViewViewManager.kt:91:26 The corresponding parameter in the supertype 'ViewGroupManager' is named 'parent'. This may cause problems when calling this function with named arguments.
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/PagerViewViewManager.kt:204:16 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/PagerViewViewManager.kt:205:45 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/PagerViewViewManager.kt:206:57 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/PagerViewViewManager.kt:207:47 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageScrollEvent.kt:6:44 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageScrollEvent.kt:21:82 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageScrollEvent.kt:27:44 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageScrollEvent.kt:28:25 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageScrollStateChangedEvent.kt:6:44 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageScrollStateChangedEvent.kt:15:89 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageScrollStateChangedEvent.kt:20:44 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageScrollStateChangedEvent.kt:21:25 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageSelectedEvent.kt:6:44 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageSelectedEvent.kt:15:69 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageSelectedEvent.kt:24:44 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-pager-view/android/src/main/java/com/reactnativepagerview/event/PageSelectedEvent.kt:25:25 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+
+> Task :react-native-html-to-pdf:compileDebugJavaWithJavac
+> Task :react-native-html-to-pdf:bundleLibCompileToJarDebug
+> Task :react-native-pager-view:compileDebugJavaWithJavac
+> Task :react-native-screens:javaPreCompileDebug
+> Task :react-native-share:generateDebugBuildConfig
+> Task :react-native-share:javaPreCompileDebug
+> Task :react-native-vector-icons:generateDebugBuildConfig
+> Task :react-native-pager-view:bundleLibCompileToJarDebug
+
+> Task :react-native-safe-area-context:compileDebugKotlin
+w: file:///C:/Projects/sbe-android/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaContextPackage.kt:27:11 'constructor ReactModuleInfo(String, String, Boolean, Boolean, Boolean, Boolean, Boolean)' is deprecated. use ReactModuleInfo(String, String, boolean, boolean, boolean, boolean)]
+w: file:///C:/Projects/sbe-android/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaContextPackage.kt:33:27 'getter for hasConstants: Boolean' is deprecated. This property is unused and it's planning to be removed in a future version of
+        React Native. Please refrain from using it.
+w: file:///C:/Projects/sbe-android/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaView.kt:59:23 'getter for uiImplementation: UIImplementation!' is deprecated. Deprecated in Java
+
+> Task :react-native-share:compileDebugJavaWithJavac
+
+> Task :react-native-vector-icons:javaPreCompileDebug
+> Task :app:javaPreCompileDebug
+> Task :react-native-share:bundleLibCompileToJarDebug
+
+> Task :react-native-vector-icons:compileDebugJavaWithJavac
+
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeDebugShaders
+> Task :react-native-async-storage_async-storage:compileDebugShaders NO-SOURCE
+> Task :react-native-async-storage_async-storage:generateDebugAssets UP-TO-DATE
+> Task :react-native-vector-icons:bundleLibCompileToJarDebug
+> Task :react-native-async-storage_async-storage:packageDebugAssets
+> Task :react-native-blob-util:mergeDebugShaders
+> Task :react-native-blob-util:compileDebugShaders NO-SOURCE
+> Task :react-native-blob-util:generateDebugAssets UP-TO-DATE
+> Task :react-native-blob-util:packageDebugAssets
+> Task :react-native-safe-area-context:compileDebugJavaWithJavac
+> Task :react-native-fast-image:mergeDebugShaders
+> Task :react-native-fast-image:compileDebugShaders NO-SOURCE
+> Task :react-native-fast-image:generateDebugAssets UP-TO-DATE
+> Task :react-native-fast-image:packageDebugAssets
+> Task :react-native-fs:mergeDebugShaders
+> Task :react-native-fs:compileDebugShaders NO-SOURCE
+> Task :react-native-fs:generateDebugAssets UP-TO-DATE
+> Task :react-native-fs:packageDebugAssets
+> Task :react-native-safe-area-context:bundleLibCompileToJarDebug
+> Task :react-native-html-to-pdf:mergeDebugShaders
+> Task :react-native-html-to-pdf:compileDebugShaders NO-SOURCE
+> Task :react-native-html-to-pdf:generateDebugAssets UP-TO-DATE
+> Task :react-native-html-to-pdf:packageDebugAssets
+> Task :react-native-pager-view:mergeDebugShaders
+> Task :react-native-pager-view:compileDebugShaders NO-SOURCE
+> Task :react-native-pager-view:generateDebugAssets UP-TO-DATE
+> Task :react-native-pager-view:packageDebugAssets
+> Task :react-native-reanimated:mergeDebugShaders
+> Task :react-native-reanimated:compileDebugShaders NO-SOURCE
+> Task :react-native-reanimated:generateDebugAssets UP-TO-DATE
+> Task :react-native-reanimated:packageDebugAssets
+> Task :react-native-safe-area-context:mergeDebugShaders
+> Task :react-native-safe-area-context:compileDebugShaders NO-SOURCE
+> Task :react-native-safe-area-context:generateDebugAssets UP-TO-DATE
+> Task :react-native-safe-area-context:packageDebugAssets
+> Task :react-native-screens:mergeDebugShaders
+> Task :react-native-screens:compileDebugShaders NO-SOURCE
+> Task :react-native-screens:generateDebugAssets UP-TO-DATE
+> Task :react-native-screens:packageDebugAssets
+> Task :react-native-share:mergeDebugShaders
+> Task :react-native-share:compileDebugShaders NO-SOURCE
+> Task :react-native-share:generateDebugAssets UP-TO-DATE
+> Task :react-native-share:packageDebugAssets
+> Task :react-native-vector-icons:mergeDebugShaders
+> Task :react-native-vector-icons:compileDebugShaders NO-SOURCE
+> Task :react-native-vector-icons:generateDebugAssets UP-TO-DATE
+> Task :react-native-vector-icons:packageDebugAssets
+> Task :app:mergeDebugAssets
+> Task :react-native-pager-view:bundleLibRuntimeToJarDebug
+> Task :react-native-async-storage_async-storage:bundleLibRuntimeToJarDebug
+> Task :app:desugarDebugFileDependencies
+> Task :react-native-async-storage_async-storage:processDebugJavaRes NO-SOURCE
+> Task :react-native-blob-util:processDebugJavaRes NO-SOURCE
+> Task :react-native-vector-icons:bundleLibRuntimeToJarDebug
+> Task :react-native-fs:bundleLibRuntimeToJarDebug
+> Task :react-native-fast-image:bundleLibRuntimeToJarDebug
+> Task :react-native-safe-area-context:bundleLibRuntimeToJarDebug
+> Task :react-native-fast-image:processDebugJavaRes
+> Task :react-native-fs:processDebugJavaRes NO-SOURCE
+> Task :react-native-html-to-pdf:bundleLibRuntimeToJarDebug
+> Task :react-native-html-to-pdf:processDebugJavaRes
+> Task :react-native-pager-view:processDebugJavaRes
+> Task :react-native-reanimated:processDebugJavaRes NO-SOURCE
+> Task :react-native-safe-area-context:processDebugJavaRes
+> Task :react-native-blob-util:bundleLibRuntimeToJarDebug
+> Task :react-native-share:processDebugJavaRes NO-SOURCE
+> Task :react-native-vector-icons:processDebugJavaRes NO-SOURCE
+> Task :react-native-share:bundleLibRuntimeToJarDebug
+> Task :react-native-reanimated:bundleLibRuntimeToJarDebug
+> Task :app:compressDebugAssets
+> Task :react-native-pager-view:bundleLibRuntimeToDirDebug
+> Task :react-native-vector-icons:bundleLibRuntimeToDirDebug
+> Task :react-native-html-to-pdf:bundleLibRuntimeToDirDebug
+> Task :app:checkDebugDuplicateClasses
+> Task :react-native-async-storage_async-storage:bundleLibRuntimeToDirDebug
+> Task :react-native-fs:bundleLibRuntimeToDirDebug
+> Task :react-native-fast-image:bundleLibRuntimeToDirDebug
+> Task :react-native-share:bundleLibRuntimeToDirDebug
+> Task :react-native-safe-area-context:bundleLibRuntimeToDirDebug
+> Task :react-native-blob-util:bundleLibRuntimeToDirDebug
+> Task :react-native-reanimated:bundleLibRuntimeToDirDebug
+
+> Task :react-native-screens:compileDebugKotlin
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/RNScreensPackage.kt:60:17 'constructor ReactModuleInfo(String, String, Boolean, Boolean, Boolean, Boolean, Boolean)' is deprecated. use ReactModuleInfo(String, String, boolean, boolean, boolean, boolean)]
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenContainer.kt:33:53 'FrameCallback' is deprecated. Use Choreographer.FrameCallback instead
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenContainer.kt:34:38 'FrameCallback' is deprecated. Use Choreographer.FrameCallback instead
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfig.kt:101:38 'getter for systemWindowInsetTop: Int' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfigViewManager.kt:6:34 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfigViewManager.kt:191:9 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfigViewManager.kt:193:13 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfigViewManager.kt:195:13 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:5:34 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:287:48 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:288:49 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:289:45 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:290:52 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:291:48 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:292:51 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:293:56 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:294:57 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:62:53 'getter for statusBarColor: Int' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:73:48 'getter for statusBarColor: Int' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:76:32 'setter for statusBarColor: Int' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:146:47 'replaceSystemWindowInsets(Int, Int, Int, Int): WindowInsetsCompat' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:147:51 'getter for systemWindowInsetLeft: Int' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:149:51 'getter for systemWindowInsetRight: Int' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:150:51 'getter for systemWindowInsetBottom: Int' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:197:72 'getter for navigationBarColor: Int' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:203:16 'setter for navigationBarColor: Int' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:5:34 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:138:66 Elvis operator (?:) always returns the left operand of non-nullable type Boolean
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:142:9 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:144:13 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:146:13 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:148:13 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:150:13 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:152:13 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:154:13 'MapBuilder' is deprecated. Deprecated in Java
+w: file:///C:/Projects/sbe-android/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarView.kt:153:43 Parameter 'flag' is never used
+
+> Task :react-native-reanimated:configureCMakeDebug[arm64-v8a]
+> Task :react-native-screens:compileDebugJavaWithJavac UP-TO-DATE
+> Task :react-native-screens:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :app:compileDebugKotlin UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac
+> Task :react-native-screens:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :app:dexBuilderDebug
+> Task :app:processDebugJavaRes
+> Task :react-native-screens:processDebugJavaRes UP-TO-DATE
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeExtDexDebug
+> Task :app:mergeProjectDexDebug
+> Task :react-native-screens:bundleLibRuntimeToDirDebug
+> Task :react-native-reanimated:configureCMakeDebug[armeabi-v7a]
+> Task :react-native-reanimated:configureCMakeDebug[x86]
+> Task :app:mergeLibDexDebug
+> Task :app:mergeDebugJavaResource FAILED
+> Task :react-native-reanimated:configureCMakeDebug[x86_64]
+w: Detected multiple Kotlin daemon sessions at kotlin\sessions
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+269 actionable tasks: 254 executed, 15 up-to-date
+
+info 💡 Tip: Make sure that you have set up your development environment correctly, by running npx react-native doctor. To read more about doctor command visit: https://github.com/react-native-community/cli/blob/main/packages/cli-doctor/README.md#doctor 
+
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: C:\Projects\sbe-android\node_modules\@react-native-async-storage\async-storage\android\src\javaPackage\java\com\reactnativecommunity\asyncstorage\AsyncStoragePackage.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: [2] Wrote GeneratedAppGlideModule with: [com.bumptech.glide.integration.okhttp3.OkHttpLibraryGlideModule, com.dylanvann.fastimage.FastImageOkHttpProgressGlideModule]
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:mergeDebugJavaResource'.
+> Cannot access output property 'cacheDir' of task ':app:mergeDebugJavaResource'. Accessing unreadable inputs or outputs is not supported. Declare the task as untracked by using Task.doNotTrackState(). For more information, please refer to https://docs.gradle.org/8.10.2/userguide/incremental_build.html#sec:disable-state-tracking in the Gradle documentation.
+   > Failed to create MD5 hash for file 'C:\Projects\sbe-android\android\app\build\intermediates\incremental\debug-mergeJavaRes\zip-cache\tgW5jcxz1+DxesVSw5I3mPWmu2Q=' as it does not exist.
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 1m 24s
+error Failed to install the app. Command failed with exit code 1: gradlew.bat app:installDebug -PreactNativeDevServerPort=8081
+Note: Some input files use or override a deprecated API. Note: Recompile with -Xlint:deprecation for details. Note: C:\Projects\sbe-android\node_modules\@react-native-async-storage\async-storage\android\src\javaPackage\java\com\reactnativecommunity\asyncstorage\AsyncStoragePackage.java uses unchecked or unsafe operations. Note: Recompile with -Xlint:unchecked for details. Note: Some input files use or override a deprecated API. Note: Recompile with -Xlint:deprecation for details. Note: [2] Wrote GeneratedAppGlideModule with: [com.bumptech.glide.integration.okhttp3.OkHttpLibraryGlideModule, com.dylanvann.fastimage.FastImageOkHttpProgressGlideModule] Note: Some input files use or override a deprecated API. Note: Recompile with -Xlint:deprecation for details. Note: Some input files use or override a deprecated API. Note: Recompile with -Xlint:deprecation for details. Note: Some input files use or override a deprecated API. Note: Recompile with -Xlint:deprecation for details. Note: Some input files use unchecked or unsafe operations. Note: Recompile with -Xlint:unchecked for details. Note: Some input files use or override a deprecated API. Note: Recompile with -Xlint:deprecation for details. Note: Some input files use or override a deprecated API. Note: Recompile with -Xlint:deprecation for details. FAILURE: Build failed with an exception. * What went wrong: Execution failed for task ':app:mergeDebugJavaResource'. > Cannot access output property 'cacheDir' of task ':app:mergeDebugJavaResource'. Accessing unreadable inputs or outputs is not supported. Declare the task as untracked by using Task.doNotTrackState(). For more information, please refer to https://docs.gradle.org/8.10.2/userguide/incremental_build.html#sec:disable-state-tracking in the Gradle documentation. > Failed to create MD5 hash for file 'C:\Projects\sbe-android\android\app\build\intermediates\incremental\debug-mergeJavaRes\zip-cache\tgW5jcxz1+DxesVSw5I3mPWmu2Q=' as it does not exist. * Try: > Run with --stacktrace option to get the stack trace. > Run with --info or --debug option to get more log output. > Run with --scan to get full insights. > Get more help at https://help.gradle.org. BUILD FAILED in 1m 24s.
+info Run CLI with --verbose flag for more details.
