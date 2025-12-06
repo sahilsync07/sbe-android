@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, TextInput } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import FastImage from 'react-native-fast-image';
 import ImageViewing from 'react-native-image-viewing';
@@ -7,6 +7,19 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { useStore, Product } from '../store/useStore';
 
 const GenericProductView = ({ product, onImagePress, onAddToCart }: { product: Product, onImagePress: () => void, onAddToCart: (opt: string) => void }) => {
+    const [isNoteInputVisible, setNoteInputVisible] = useState(false);
+    const [noteText, setNoteText] = useState('');
+
+    const handleAddNote = () => {
+        if (!noteText.trim()) {
+            Alert.alert('Error', 'Please enter a note');
+            return;
+        }
+        onAddToCart(`Note: ${noteText}`);
+        setNoteInputVisible(false);
+        setNoteText('');
+    };
+
     return (
         <ScrollView contentContainerStyle={styles.pageContent}>
             <TouchableOpacity onPress={onImagePress}>
@@ -33,9 +46,30 @@ const GenericProductView = ({ product, onImagePress, onAddToCart }: { product: P
                             </TouchableOpacity>
                         ))}
                     </View>
-                    <TouchableOpacity style={[styles.optBtn, styles.noteBtn]} onPress={() => onAddToCart('Custom')}>
-                        <Text style={styles.optText}>Note / Custom</Text>
-                    </TouchableOpacity>
+
+                    {!isNoteInputVisible ? (
+                        <TouchableOpacity style={[styles.optBtn, styles.noteBtn]} onPress={() => setNoteInputVisible(true)}>
+                            <Text style={styles.optText}>Note / Custom</Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <View style={styles.noteContainer}>
+                            <TextInput
+                                style={styles.noteInput}
+                                placeholder="Enter your custom note..."
+                                value={noteText}
+                                onChangeText={setNoteText}
+                                multiline
+                            />
+                            <View style={styles.noteActions}>
+                                <TouchableOpacity style={[styles.optBtn, { backgroundColor: '#e74c3c', marginRight: 10 }]} onPress={() => setNoteInputVisible(false)}>
+                                    <Text style={styles.optText}>Cancel</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.optBtn, { backgroundColor: '#27ae60' }]} onPress={handleAddNote}>
+                                    <Text style={styles.optText}>Add Note</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    )}
                 </View>
             </View>
         </ScrollView>
@@ -61,11 +95,11 @@ const ProductDetailScreen = () => {
 
     const handleAddToCart = (item: Product, option: string) => {
         store.addToCart({
-            id: item.productName,
+            id: item.productName, // Simplified ID, strictly one entry per product currently
             product: item,
             selection: option
         });
-        Alert.alert('Success', 'Added to Cart');
+        Alert.alert('Success', `Added to Cart: ${option}`);
     };
 
     return (
@@ -112,7 +146,10 @@ const styles = StyleSheet.create({
     btnRow: { flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 },
     optBtn: { backgroundColor: '#333', padding: 10, borderRadius: 5, minWidth: 80, alignItems: 'center' },
     optText: { color: '#fff', fontWeight: 'bold' },
-    noteBtn: { backgroundColor: '#555', alignSelf: 'center', width: '100%' }
+    noteBtn: { backgroundColor: '#555', alignSelf: 'center', width: '100%' },
+    noteContainer: { marginTop: 10 },
+    noteInput: { borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, height: 80, textAlignVertical: 'top', marginBottom: 10 },
+    noteActions: { flexDirection: 'row', justifyContent: 'flex-end' }
 });
 
 export default ProductDetailScreen;

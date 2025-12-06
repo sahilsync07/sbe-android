@@ -17,7 +17,7 @@ const CartScreen = () => {
             let rows = cart.map(item => `
         <tr>
           <td>${item.product.productName}</td>
-          <td>${item.selection} ${item.selection === 'Custom' ? '(Note)' : ''}</td>
+          <td>${item.selection}</td>
         </tr>
       `).join('');
 
@@ -51,10 +51,10 @@ const CartScreen = () => {
             const file = await RNHTMLtoPDF.convert(options);
 
             const shareOptions = {
-                title: 'Share Order',
+                title: 'Share Order (PDF)',
                 url: `file://${file.filePath}`,
                 type: 'application/pdf',
-                message: 'Here is my order',
+                message: 'Here is my order (PDF)',
                 social: Share.Social.WHATSAPP,
                 whatsAppNumber: '',
                 failOnCancel: false,
@@ -67,7 +67,7 @@ const CartScreen = () => {
                 await Share.open({
                     url: `file://${file.filePath}`,
                     type: 'application/pdf',
-                    message: 'Here is my order',
+                    message: 'Here is my order (PDF)',
                 });
             }
 
@@ -77,10 +77,48 @@ const CartScreen = () => {
         }
     };
 
+    const shareText = async () => {
+        if (cart.length === 0) {
+            Alert.alert('Empty Cart', 'Add items first');
+            return;
+        }
+
+        let message = "*Order Summary*\n\n";
+        cart.forEach(item => {
+            message += `*${item.product.productName}*\n`;
+            message += `> ${item.selection}\n\n`;
+        });
+
+        try {
+            const shareOptions = {
+                title: 'Share Order (Text)',
+                message: message,
+                social: Share.Social.WHATSAPP,
+                whatsAppNumber: '',
+                failOnCancel: false,
+            } as any;
+
+            try {
+                await Share.shareSingle(shareOptions);
+            } catch (err) {
+                await Share.open({
+                    message: message,
+                    title: 'Order Summary'
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const renderItem = ({ item }: { item: CartItem }) => (
         <View style={styles.item}>
-            <Text style={styles.name}>{item.product.productName}</Text>
-            <Text style={styles.sel}>{item.selection}</Text>
+            <View style={{ flex: 1 }}>
+                <Text style={styles.name}>{item.product.productName}</Text>
+                <Text style={[styles.sel, item.selection.startsWith('Note:') ? { color: '#e67e22', fontStyle: 'italic' } : {}]}>
+                    {item.selection}
+                </Text>
+            </View>
             <TouchableOpacity onPress={() => removeFromCart(item.id)} style={styles.remove}>
                 <Text style={styles.removeText}>Remove</Text>
             </TouchableOpacity>
@@ -98,8 +136,11 @@ const CartScreen = () => {
             />
 
             <View style={styles.footer}>
-                <TouchableOpacity style={styles.shareBtn} onPress={generatePDF}>
-                    <Text style={styles.shareText}>Share Order (WhatsApp PDF)</Text>
+                <TouchableOpacity style={[styles.shareBtn, { marginBottom: 10, backgroundColor: '#3498db' }]} onPress={generatePDF}>
+                    <Text style={styles.shareText}>Share PDF</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.shareBtn} onPress={shareText}>
+                    <Text style={styles.shareText}>Share Text (WhatsApp)</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -110,9 +151,9 @@ const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#f9f9f9' },
     header: { fontSize: 24, fontWeight: 'bold', padding: 20, backgroundColor: '#fff' },
     item: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff', padding: 15, marginBottom: 10, borderRadius: 8 },
-    name: { flex: 1, fontSize: 14, color: '#333' },
-    sel: { marginHorizontal: 10, fontWeight: 'bold', color: '#007bff' },
-    remove: { padding: 5 },
+    name: { fontSize: 14, color: '#333', fontWeight: 'bold' },
+    sel: { marginTop: 4, fontSize: 13, color: '#007bff' },
+    remove: { padding: 5, marginLeft: 10 },
     removeText: { color: 'red', fontSize: 12 },
     footer: { padding: 20, backgroundColor: '#fff', elevation: 10 },
     shareBtn: { backgroundColor: '#25D366', padding: 15, borderRadius: 8, alignItems: 'center' },

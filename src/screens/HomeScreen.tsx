@@ -1,47 +1,78 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, StatusBar, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar, TextInput, Switch } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import FastImage from 'react-native-fast-image';
 import { useStore, Product, Brand } from '../store/useStore';
 import { useNavigation } from '@react-navigation/native';
 import { syncData } from '../api/sync';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // Assuming generic icon usage if available, else plain text
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+// Utility for Title Case
+const toTitleCase = (str: string) => {
+    return str.replace(
+        /\w\S*/g,
+        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+    );
+};
+
+type ListItem =
+    | (Brand & { type: 'header' })
+    | { type: 'product'; product: Product; groupName: string };
 
 const HomeScreen = () => {
     const { brands, toggleBrandCollapse, syncStatus, lastSynced } = useStore();
     const navigation = useNavigation<any>();
     const [searchQuery, setSearchQuery] = useState('');
+    const [showOnlyImages, setShowOnlyImages] = useState(false);
 
     useEffect(() => {
         // Initial sync handled by user via button or could be auto
     }, []);
 
-    const data = useMemo(() => {
+    const data = useMemo<ListItem[]>(() => {
         const listItems: any[] = [];
         const query = searchQuery.toLowerCase().trim();
 
         brands.forEach((brand) => {
             const brandMatches = brand.groupName.toLowerCase().includes(query);
 
+            // Filter Logic
             if (query === '') {
-                // Default view
-                listItems.push({ type: 'header', ...brand });
-                if (brand.isExpanded !== false) {
-                    brand.products.forEach((p) => {
-                        listItems.push({ type: 'product', product: p, groupName: brand.groupName });
-                    });
+                // Default view - Check Image Filter
+                const filteredProducts = showOnlyImages
+                    ? brand.products.filter(p => (p.localImagePath || p.imageUrl))
+                    : brand.products;
+
+                if (filteredProducts.length > 0) {
+                    listItems.push({ type: 'header', ...brand });
+                    if (brand.isExpanded !== false) {
+                        filteredProducts.forEach((p) => {
+                            listItems.push({ type: 'product', product: p, groupName: brand.groupName });
+                        });
+                    }
                 }
             } else {
                 // Search Mode
                 if (brandMatches) {
-                    // Show brand header and ALL products
-                    listItems.push({ type: 'header', ...brand, isExpanded: true }); // Force expanded for search
-                    brand.products.forEach((p) => {
-                        listItems.push({ type: 'product', product: p, groupName: brand.groupName });
-                    });
+                    // Show brand header and relevant products
+                    const relevantProducts = showOnlyImages
+                        ? brand.products.filter(p => (p.localImagePath || p.imageUrl))
+                        : brand.products;
+
+                    if (relevantProducts.length > 0) {
+                        listItems.push({ type: 'header', ...brand, isExpanded: true });
+                        relevantProducts.forEach((p) => {
+                            listItems.push({ type: 'product', product: p, groupName: brand.groupName });
+                        });
+                    }
                 } else {
-                    // Check products
-                    const matchingProducts = brand.products.filter(p => p.productName.toLowerCase().includes(query));
+                    // Check products by name
+                    let matchingProducts = brand.products.filter(p => p.productName.toLowerCase().includes(query));
+
+                    if (showOnlyImages) {
+                        matchingProducts = matchingProducts.filter(p => (p.localImagePath || p.imageUrl));
+                    }
+
                     if (matchingProducts.length > 0) {
                         listItems.push({ type: 'header', ...brand, isExpanded: true });
                         matchingProducts.forEach((p) => {
@@ -52,23 +83,24 @@ const HomeScreen = () => {
             }
         });
         return listItems;
-    }, [brands, searchQuery]);
+    }, [brands, searchQuery, showOnlyImages]);
 
-    const renderItem = ({ item }: { item: any }) => {
+    const renderItem = ({ item }: { item: ListItem }) => {
         if (item.type === 'header') {
             return (
                 <TouchableOpacity
                     style={styles.header}
                     onPress={() => toggleBrandCollapse(item.groupName)}
                 >
-                    <Text style={styles.headerText}>{item.groupName} ({item.products.length})</Text>
-                    {/* Could add expand/collapse icon here */}
+                    <Text style={styles.headerText}>{item.groupName} ({item.products ? item.products.length : ''})</Text>
                 </TouchableOpacity>
             );
         }
 
         // Product Item
         const p: Product = item.product;
+        const displayName = toTitleCase(p.productName);
+
         return (
             <TouchableOpacity
                 style={styles.card}
@@ -83,10 +115,9 @@ const HomeScreen = () => {
                         }}
                         resizeMode={FastImage.resizeMode.cover}
                     />
-                    {/* Overlay Price if needed? No, user said no price. */}
                 </View>
                 <View style={styles.details}>
-                    <Text style={styles.name} numberOfLines={2}>{p.productName}</Text>
+                    <Text style={styles.name} numberOfLines={2}>{displayName}</Text>
                     <View style={styles.badge}>
                         <Text style={styles.qtyText}>Qty: {p.quantity}</Text>
                     </View>
@@ -101,7 +132,7 @@ const HomeScreen = () => {
 
             <View style={styles.topContainer}>
                 <View style={styles.topBar}>
-                    <Text style={styles.title}>SBE Stock</Text>
+                    <Text style={styles.title}>e-sbe</Text>
                     <View style={styles.actions}>
                         <View style={{ alignItems: 'flex-end', marginRight: 15 }}>
                             <TouchableOpacity style={styles.syncBtn} onPress={() => syncData()}>
@@ -112,7 +143,6 @@ const HomeScreen = () => {
                             </Text>
                         </View>
                         <TouchableOpacity style={styles.cartBtn} onPress={() => navigation.navigate('Cart')}>
-                            {/* You can replace text with Icon if vector-icons works */}
                             <Text style={styles.cartText}>Cart</Text>
                         </TouchableOpacity>
                     </View>
@@ -127,12 +157,23 @@ const HomeScreen = () => {
                         onChangeText={setSearchQuery}
                     />
                 </View>
+
+                <View style={styles.filterContainer}>
+                    <Text style={styles.filterText}>Show only articles with images</Text>
+                    <Switch
+                        value={showOnlyImages}
+                        onValueChange={setShowOnlyImages}
+                        trackColor={{ false: "#767577", true: "#3498db" }}
+                        thumbColor={showOnlyImages ? "#ecf0f1" : "#f4f3f4"}
+                    />
+                </View>
             </View>
 
-            <FlashList
+            <FlashList<ListItem>
                 data={data}
                 renderItem={renderItem}
-                estimatedItemSize={220}
+                // @ts-ignore
+                estimatedItemSize={260}
                 numColumns={2}
                 getItemType={(item) => item.type}
                 overrideItemLayout={(layout: any, item) => {
@@ -140,7 +181,7 @@ const HomeScreen = () => {
                         layout.span = 2; // Full width
                         layout.size = 60;
                     } else {
-                        layout.size = 260; // Approximate height of card
+                        layout.size = 300; // Increased size for aspect ratio
                     }
                 }}
                 contentContainerStyle={{ paddingBottom: 20, paddingTop: 10 }}
@@ -221,6 +262,18 @@ const styles = StyleSheet.create({
         color: '#333',
         elevation: 2
     },
+    filterContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 15,
+        marginTop: 10
+    },
+    filterText: {
+        color: '#fff',
+        fontSize: 14,
+        fontWeight: '500'
+    },
     header: {
         backgroundColor: 'transparent',
         padding: 10,
@@ -250,10 +303,9 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
     },
     imageContainer: {
-        height: 160,
+        width: '100%',
+        aspectRatio: 3 / 4, // 3:4 portrait ratio
         backgroundColor: '#ecf0f1',
-        justifyContent: 'center',
-        alignItems: 'center'
     },
     image: {
         width: '100%',
