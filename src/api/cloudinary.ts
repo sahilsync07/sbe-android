@@ -1,9 +1,10 @@
 export const uploadToCloudinary = async (fileUri: string): Promise<string> => {
     const data = new FormData();
+    const timestamp = new Date().getTime();
     data.append('file', {
         uri: fileUri,
-        type: 'image/jpeg', // Crop picker usually returns jpg, or we can detect
-        name: 'upload.jpg',
+        type: 'image/jpeg',
+        name: `sbe_upload_${timestamp}_${Math.random().toString(36).substr(2, 5)}.jpg`,
     });
     data.append('upload_preset', 'sbe-stock');
 

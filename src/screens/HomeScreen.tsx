@@ -95,17 +95,21 @@ const HomeScreen = () => {
     // --- Admin Handlers ---
     const handleAdminToggle = () => {
         if (isAdmin) {
-            Alert.alert('Admin Logout', 'Are you sure you want to exit Admin Mode?', [
-                { text: 'Cancel', style: 'cancel' },
-                { text: 'Logout', onPress: () => setIsAdmin(false) }
-            ]);
+            Alert.alert(
+                'Exit Admin Mode',
+                'Are you sure you want to return to normal mode?',
+                [
+                    { text: 'Cancel', style: 'cancel' },
+                    { text: 'Exit', style: 'destructive', onPress: () => setIsAdmin(false) }
+                ]
+            );
         } else {
             setPasswordModalVisible(true);
         }
     };
 
     const verifyPassword = () => {
-        if (passwordInput === 'admin123') {
+        if (passwordInput === 'admin123' || passwordInput === 'Admin123' || passwordInput === 'admin' || passwordInput === 'Admin') {
             setIsAdmin(true);
             setPasswordModalVisible(false);
             setPasswordInput('');
@@ -119,11 +123,9 @@ const HomeScreen = () => {
     const handleUploadImage = async (product: Product) => {
         try {
             const image = await ImagePicker.openPicker({
-                width: 800,
-                height: 800,
-                cropping: true,
                 mediaType: 'photo',
                 compressImageQuality: 0.8,
+                cropping: false // Disable crop
             });
 
             setUploadingProduct(product.productName);
@@ -417,9 +419,11 @@ const HomeScreen = () => {
             <View style={styles.headerContainer}>
                 <View style={styles.topBar}>
                     <TouchableOpacity onPress={handleAdminToggle} activeOpacity={0.8}>
-                        <Text style={[styles.appTitle, isAdmin && { color: theme.colors.accent }]}>
-                            {isAdmin ? 'ADMIN MODE' : 'e-sbe'}
-                        </Text>
+                        {isAdmin ? (
+                            <Text style={styles.adminTitle}>ADMIN</Text>
+                        ) : (
+                            <Text style={styles.appTitle}>e-sbe</Text>
+                        )}
                     </TouchableOpacity>
                     <View style={styles.actionButtons}>
                         {lastSynced && (
@@ -558,6 +562,14 @@ const styles = StyleSheet.create({
         letterSpacing: 2,
         fontFamily: Platform.OS === 'android' ? 'serif' : 'Georgia',
         fontStyle: 'italic'
+    },
+    adminTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: theme.colors.accent,
+        letterSpacing: 3,
+        fontFamily: Platform.OS === 'android' ? 'monospace' : 'Courier New',
+        textTransform: 'uppercase',
     },
     actionButtons: {
         flexDirection: 'row',

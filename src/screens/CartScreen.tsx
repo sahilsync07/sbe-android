@@ -110,7 +110,7 @@ const CartScreen = () => {
 
                 <TouchableOpacity style={[styles.shareBtn, { backgroundColor: '#25D366' }]} onPress={initiateWhatsAppShare}>
                     <Icon name="chat" size={20} color="#fff" style={{ marginRight: 10 }} />
-                    <Text style={styles.shareText}>WhatsApp Text</Text>
+                    <Text style={styles.shareText}>Place Order</Text>
                 </TouchableOpacity>
             </View>
 
