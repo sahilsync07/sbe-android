@@ -7,6 +7,11 @@ import { useNavigation } from '@react-navigation/native';
 import { syncData } from '../api/sync';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { theme } from '../theme';
+import { uploadToCloudinary } from '../api/cloudinary';
+import { updateProductImageInGitHub } from '../api/github';
+import ImagePicker from 'react-native-image-crop-picker';
+import { useToast } from '../components/Toast';
+import { Alert, Modal } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -75,8 +80,120 @@ const HomeScreen = () => {
     const [showOnlyImages, setShowOnlyImages] = useState(true);
     const listRef = useRef<any>(null); // Using any to avoid TS issues with FlashList type
 
+    const { showToast } = useToast();
+
+    // Admin State
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [isPasswordModalVisible, setPasswordModalVisible] = useState(false);
+    const [passwordInput, setPasswordInput] = useState('');
+    const [uploadingProduct, setUploadingProduct] = useState<string | null>(null);
+
     const scrollToTop = () => {
         listRef.current?.scrollToOffset({ offset: 0, animated: true });
+    };
+
+    // --- Admin Handlers ---
+    const handleAdminToggle = () => {
+        if (isAdmin) {
+            Alert.alert('Admin Logout', 'Are you sure you want to exit Admin Mode?', [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Logout', onPress: () => setIsAdmin(false) }
+            ]);
+        } else {
+            setPasswordModalVisible(true);
+        }
+    };
+
+    const verifyPassword = () => {
+        if (passwordInput === 'admin123') {
+            setIsAdmin(true);
+            setPasswordModalVisible(false);
+            setPasswordInput('');
+            showToast('Admin Mode Enabled', 'success');
+        } else {
+            Alert.alert('Error', 'Incorrect Password');
+            setPasswordInput('');
+        }
+    };
+
+    const handleUploadImage = async (product: Product) => {
+        try {
+            const image = await ImagePicker.openPicker({
+                width: 800,
+                height: 800,
+                cropping: true,
+                mediaType: 'photo',
+                compressImageQuality: 0.8,
+            });
+
+            setUploadingProduct(product.productName);
+            showToast('Uploading image...', 'info');
+
+            // 1. Upload to Cloudinary
+            const imageUrl = await uploadToCloudinary(image.path);
+
+            // 2. Update GitHub JSON
+            await updateProductImageInGitHub(product.productName, imageUrl);
+
+            // 3. Update Local Store (Optimistic)
+            // We need to update the specific product in the store brands array
+            const newBrands = brands.map(b => ({
+                ...b,
+                products: b.products.map(p =>
+                    p.productName === product.productName
+                        ? { ...p, imageUrl: imageUrl, localImagePath: null }
+                        : p
+                )
+            }));
+            useStore.getState().setBrands(newBrands);
+
+            showToast('Image updated successfully!', 'success');
+        } catch (error: any) {
+            if (error.message !== 'User cancelled image selection') {
+                console.error(error);
+                Alert.alert('Upload Failed', error.message || 'Something went wrong');
+            }
+        } finally {
+            setUploadingProduct(null);
+        }
+    };
+
+    const handleRemoveImage = (product: Product) => {
+        Alert.alert(
+            'Remove Image',
+            `Are you sure you want to remove the image for ${product.productName}?`,
+            [
+                { text: 'Cancel', style: 'cancel' },
+                {
+                    text: 'Remove',
+                    style: 'destructive',
+                    onPress: async () => {
+                        try {
+                            setUploadingProduct(product.productName);
+                            showToast('Removing image...', 'info');
+
+                            await updateProductImageInGitHub(product.productName, null);
+
+                            const newBrands = brands.map(b => ({
+                                ...b,
+                                products: b.products.map(p =>
+                                    p.productName === product.productName
+                                        ? { ...p, imageUrl: null, localImagePath: null }
+                                        : p
+                                )
+                            }));
+                            useStore.getState().setBrands(newBrands);
+
+                            showToast('Image removed.', 'success');
+                        } catch (err: any) {
+                            Alert.alert('Error', err.message);
+                        } finally {
+                            setUploadingProduct(null);
+                        }
+                    }
+                }
+            ]
+        );
     };
 
 
@@ -240,6 +357,47 @@ const HomeScreen = () => {
                         }}
                         resizeMode={FastImage.resizeMode.cover}
                     />
+                    {/* Admin Controls */}
+                    {isAdmin && (
+                        <View style={[StyleSheet.absoluteFill, { justifyContent: 'center', alignItems: 'center' }]}>
+                            {uploadingProduct === p.productName ? (
+                                <View style={styles.loadingOverlay}>
+                                    <Text style={{ color: '#fff', fontWeight: 'bold' }}>Busy...</Text>
+                                </View>
+                            ) : (
+                                <>
+                                    {/* Upload Button (if no image or always allowed to replace) */}
+                                    {(!p.imageUrl && !p.localImagePath) ? (
+                                        <TouchableOpacity
+                                            style={styles.uploadBtn}
+                                            onPress={() => handleUploadImage(p)}
+                                        >
+                                            <Icon name="add-a-photo" size={24} color="#fff" />
+                                            <Text style={styles.uploadBtnText}>Upload</Text>
+                                        </TouchableOpacity>
+                                    ) : (
+                                        // Remove Button (Top Right)
+                                        <TouchableOpacity
+                                            style={styles.removeBtn}
+                                            onPress={() => handleRemoveImage(p)}
+                                        >
+                                            <Icon name="close" size={16} color="#fff" />
+                                        </TouchableOpacity>
+                                    )}
+
+                                    {/* Allow re-upload even if image exists? Yes. */}
+                                    {(p.imageUrl || p.localImagePath) && (
+                                        <TouchableOpacity
+                                            style={styles.editBtn}
+                                            onPress={() => handleUploadImage(p)}
+                                        >
+                                            <Icon name="edit" size={16} color="#fff" />
+                                        </TouchableOpacity>
+                                    )}
+                                </>
+                            )}
+                        </View>
+                    )}
                 </View>
                 <View style={styles.cardContent}>
                     <Text style={styles.productName} numberOfLines={2}>{displayName}</Text>
@@ -258,7 +416,11 @@ const HomeScreen = () => {
             {/* Top Bar Area */}
             <View style={styles.headerContainer}>
                 <View style={styles.topBar}>
-                    <Text style={styles.appTitle}>e-sbe</Text>
+                    <TouchableOpacity onPress={handleAdminToggle} activeOpacity={0.8}>
+                        <Text style={[styles.appTitle, isAdmin && { color: theme.colors.accent }]}>
+                            {isAdmin ? 'ADMIN MODE' : 'e-sbe'}
+                        </Text>
+                    </TouchableOpacity>
                     <View style={styles.actionButtons}>
                         {lastSynced && (
                             <View style={{ marginRight: 8, justifyContent: 'center', alignItems: 'flex-end' }}>
@@ -335,6 +497,35 @@ const HomeScreen = () => {
             <TouchableOpacity style={styles.fab} onPress={scrollToTop}>
                 <Icon name="keyboard-arrow-up" size={32} color="#fff" />
             </TouchableOpacity>
+
+            <Modal
+                transparent
+                visible={isPasswordModalVisible}
+                animationType="fade"
+                onRequestClose={() => setPasswordModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>Enter Admin Password</Text>
+                        <TextInput
+                            style={styles.passwordInput}
+                            placeholder="Password"
+                            secureTextEntry
+                            value={passwordInput}
+                            onChangeText={setPasswordInput}
+                            autoFocus
+                        />
+                        <View style={styles.modalButtons}>
+                            <TouchableOpacity style={styles.modalBtnCancel} onPress={() => setPasswordModalVisible(false)}>
+                                <Text style={styles.modalBtnText}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.modalBtnSubmit} onPress={verifyPassword}>
+                                <Text style={[styles.modalBtnText, { color: theme.colors.primary }]}>Login</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 };
@@ -566,6 +757,92 @@ const styles = StyleSheet.create({
         fontSize: 10,
         fontWeight: 'bold',
         textAlign: 'center'
+    },
+    // Admin Styles
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        width: '80%',
+        padding: 20,
+        borderRadius: 12,
+        elevation: 5,
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 15,
+        color: '#333',
+        textAlign: 'center'
+    },
+    passwordInput: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 8,
+        padding: 10,
+        marginBottom: 20,
+        fontSize: 16,
+        color: '#333'
+    },
+    modalButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    modalBtnCancel: {
+        padding: 10,
+    },
+    modalBtnSubmit: {
+        padding: 10,
+    },
+    modalBtnText: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: '#999'
+    },
+    loadingOverlay: {
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        padding: 10,
+        borderRadius: 8
+    },
+    uploadBtn: {
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        padding: 15,
+        borderRadius: 30,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    uploadBtnText: {
+        color: '#fff',
+        fontSize: 10,
+        marginTop: 4,
+        fontWeight: 'bold'
+    },
+    removeBtn: {
+        position: 'absolute',
+        top: 5,
+        right: 5,
+        backgroundColor: '#ef5350',
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 2
+    },
+    editBtn: {
+        position: 'absolute',
+        bottom: 5,
+        right: 5,
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });
 
