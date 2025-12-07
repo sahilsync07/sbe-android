@@ -7,6 +7,7 @@ import { useStore, Product } from '../store/useStore';
 import { theme } from '../theme';
 import { useToast } from '../components/Toast';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { HeaderCartButton } from '../components/HeaderCartButton';
 
 const { width } = Dimensions.get('window');
 
