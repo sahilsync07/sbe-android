@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, TextInput, Dimensions, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ImageViewing from 'react-native-image-viewing';
@@ -101,6 +101,7 @@ const ProductDetailScreen = () => {
     const navigation = useNavigation<any>();
     const { product, groupName } = route.params;
     const store = useStore();
+    const cart = store.cart;
     const { showToast } = useToast();
 
     const brand = store.brands.find(b => b.groupName === groupName);
@@ -122,6 +123,28 @@ const ProductDetailScreen = () => {
         });
         showToast(`Added ${item.productName} (${option})`, 'success');
     };
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: groupName || 'Details',
+            headerStyle: { backgroundColor: '#fff' },
+            headerTintColor: theme.colors.secondary,
+            headerTitleStyle: { fontWeight: 'bold' },
+            headerRight: () => (
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Cart')}
+                    style={{ marginRight: 0, padding: 5 }}
+                >
+                    <Icon name="shopping-cart" size={24} color={theme.colors.secondary} />
+                    {cart.length > 0 && (
+                        <View style={styles.headerCartBadge}>
+                            <Text style={styles.headerCartBadgeText}>{cart.length}</Text>
+                        </View>
+                    )}
+                </TouchableOpacity>
+            ),
+        });
+    }, [navigation, groupName, cart.length]);
 
     return (
         <View style={styles.container}>
@@ -164,6 +187,25 @@ const ProductDetailScreen = () => {
 };
 
 const styles = StyleSheet.create({
+    headerCartBadge: {
+        position: 'absolute',
+        top: -4,
+        right: -4,
+        backgroundColor: theme.colors.accent,
+        minWidth: 18,
+        height: 18,
+        borderRadius: 9,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1.5,
+        borderColor: '#fff',
+    },
+    headerCartBadgeText: {
+        color: '#fff',
+        fontSize: 10,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
     container: { flex: 1, backgroundColor: theme.colors.surface },
     pagerView: { flex: 1 },
     page: { flex: 1 },

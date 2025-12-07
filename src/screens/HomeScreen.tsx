@@ -69,7 +69,7 @@ type ProductItem = { type: 'product'; product: Product; groupName: string };
 type ListItem = MetaHeaderItem | BrandHeaderItem | ProductItem;
 
 const HomeScreen = () => {
-    const { brands, toggleBrandCollapse, syncStatus, lastSynced, syncProgress } = useStore();
+    const { brands, toggleBrandCollapse, syncStatus, lastSynced, syncProgress, cart } = useStore();
     const navigation = useNavigation<any>();
     const [searchQuery, setSearchQuery] = useState('');
     const [showOnlyImages, setShowOnlyImages] = useState(true);
@@ -282,6 +282,11 @@ const HomeScreen = () => {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.iconButton} onPress={() => navigation.navigate('Cart')}>
                             <Icon name="shopping-cart" size={20} color="#fff" />
+                            {cart.length > 0 && (
+                                <View style={styles.cartBadge}>
+                                    <Text style={styles.cartBadgeText}>{cart.length}</Text>
+                                </View>
+                            )}
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -541,6 +546,26 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 4.65,
         zIndex: 100,
+    },
+    cartBadge: {
+        position: 'absolute',
+        top: -5,
+        right: -5,
+        backgroundColor: theme.colors.accent,
+        minWidth: 18,
+        height: 18,
+        borderRadius: 9,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1.5,
+        borderColor: theme.colors.primary,
+        paddingHorizontal: 2
+    },
+    cartBadgeText: {
+        color: '#fff',
+        fontSize: 10,
+        fontWeight: 'bold',
+        textAlign: 'center'
     }
 });
 
