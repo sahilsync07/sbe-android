@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, StatusBar, TextInput, Switch, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar, TextInput, Switch, Dimensions, Animated, Easing, Platform } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import FastImage from 'react-native-fast-image';
 import { useStore, Product, Brand } from '../store/useStore';
@@ -79,9 +79,28 @@ const HomeScreen = () => {
         listRef.current?.scrollToOffset({ offset: 0, animated: true });
     };
 
+
+    const spinValue = useRef(new Animated.Value(0)).current;
+
     useEffect(() => {
-        // Initial sync check or auto-sync could go here
-    }, []);
+        if (syncStatus === 'syncing') {
+            Animated.loop(
+                Animated.timing(spinValue, {
+                    toValue: 1,
+                    duration: 1000,
+                    easing: Easing.linear,
+                    useNativeDriver: true
+                })
+            ).start();
+        } else {
+            spinValue.setValue(0);
+        }
+    }, [syncStatus]);
+
+    const spin = spinValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg']
+    });
 
     const data = useMemo<ListItem[]>(() => {
         const listItems: ListItem[] = [];
@@ -241,9 +260,18 @@ const HomeScreen = () => {
                 <View style={styles.topBar}>
                     <Text style={styles.appTitle}>e-sbe</Text>
                     <View style={styles.actionButtons}>
+                        {lastSynced && (
+                            <View style={{ marginRight: 8, justifyContent: 'center', alignItems: 'flex-end' }}>
+                                <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 10 }}>Last Synced</Text>
+                                <Text style={{ color: '#fff', fontSize: 10, fontWeight: 'bold' }}>
+                                    {new Date(lastSynced).toLocaleDateString()} {new Date(lastSynced).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </Text>
+                            </View>
+                        )}
                         <TouchableOpacity style={styles.iconButton} onPress={() => syncData()}>
-                            <Icon name="sync" size={20} color="#fff" style={syncStatus === 'syncing' ? { opacity: 0.5 } : {}} />
-                            {lastSynced && <View style={styles.dot} />}
+                            <Animated.View style={{ transform: [{ rotate: spin }] }}>
+                                <Icon name="sync" size={20} color="#fff" />
+                            </Animated.View>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.iconButton} onPress={() => navigation.navigate('Cart')}>
                             <Icon name="shopping-cart" size={20} color="#fff" />
@@ -321,10 +349,12 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     appTitle: {
-        fontSize: 26,
-        fontWeight: '800',
+        fontSize: 28,
+        fontWeight: 'bold',
         color: '#fff',
-        letterSpacing: 1,
+        letterSpacing: 2,
+        fontFamily: Platform.OS === 'android' ? 'serif' : 'Georgia',
+        fontStyle: 'italic'
     },
     actionButtons: {
         flexDirection: 'row',

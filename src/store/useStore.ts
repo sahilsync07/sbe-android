@@ -33,6 +33,7 @@ interface StoreState {
     toggleBrandCollapse: (groupName: string) => void;
     addToCart: (item: CartItem) => void;
     removeFromCart: (id: string) => void;
+    clearCart: () => void;
     setSyncStatus: (status: 'idle' | 'syncing' | 'success' | 'error') => void;
     setLastSynced: (date: string) => void;
 }
@@ -63,6 +64,7 @@ export const useStore = create<StoreState>()(
                 }),
             removeFromCart: (id) =>
                 set((state) => ({ cart: state.cart.filter((i) => i.id !== id) })),
+            clearCart: () => set({ cart: [] }),
             setSyncStatus: (status) => set({ syncStatus: status }),
             setLastSynced: (date) => set({ lastSynced: date }),
         }),

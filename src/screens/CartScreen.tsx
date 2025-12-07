@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useToast } from '../components/Toast';
 
 const CartScreen = () => {
-    const { cart, removeFromCart } = useStore();
+    const { cart, removeFromCart, clearCart } = useStore();
     const { showToast } = useToast();
     const [isWhatsAppModalVisible, setWhatsAppModalVisible] = useState(false);
     const [userName, setUserName] = useState('');
@@ -81,6 +81,16 @@ const CartScreen = () => {
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Your Cart</Text>
                 <Text style={styles.headerSubtitle}>{cart.length} Items</Text>
+                {cart.length > 0 && (
+                    <TouchableOpacity onPress={() => {
+                        Alert.alert("Clear Cart", "Are you sure you want to remove all items?", [
+                            { text: "Cancel", style: "cancel" },
+                            { text: "Clear", style: "destructive", onPress: clearCart }
+                        ]);
+                    }}>
+                        <Text style={{ color: '#e74c3c', fontWeight: 'bold' }}>Clear All</Text>
+                    </TouchableOpacity>
+                )}
             </View>
 
             <FlatList
@@ -119,12 +129,14 @@ const CartScreen = () => {
                         <TextInput
                             style={styles.input}
                             placeholder="Your Name"
+                            placeholderTextColor="#666"
                             value={userName}
                             onChangeText={setUserName}
                         />
                         <TextInput
                             style={styles.input}
                             placeholder="Phone Number"
+                            placeholderTextColor="#666"
                             keyboardType="phone-pad"
                             value={userPhone}
                             onChangeText={setUserPhone}
