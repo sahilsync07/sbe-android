@@ -35,6 +35,8 @@ interface StoreState {
     removeFromCart: (id: string) => void;
     clearCart: () => void;
     setSyncStatus: (status: 'idle' | 'syncing' | 'success' | 'error') => void;
+    syncProgress: number;
+    setSyncProgress: (progress: number) => void;
     setLastSynced: (date: string) => void;
 }
 
@@ -66,6 +68,8 @@ export const useStore = create<StoreState>()(
                 set((state) => ({ cart: state.cart.filter((i) => i.id !== id) })),
             clearCart: () => set({ cart: [] }),
             setSyncStatus: (status) => set({ syncStatus: status }),
+            syncProgress: 0,
+            setSyncProgress: (progress) => set({ syncProgress: progress }),
             setLastSynced: (date) => set({ lastSynced: date }),
         }),
         {

@@ -66,10 +66,24 @@ export const syncData = async () => {
         const response = await fetch(DATA_URL);
         const remoteData: Brand[] = await response.json();
 
+        // Calculate total items for progress
+        // Each brand is 1 unit, each product image download/check is 1 unit? 
+        // Or just count brands? Brands + Products is safer for granularity.
+        let totalItems = remoteData.length;
+        remoteData.forEach(b => totalItems += b.products.length);
+        let processedItems = 0;
+
+        const updateProgress = () => {
+            processedItems++;
+            const progress = Math.min(Math.round((processedItems / totalItems) * 100), 100);
+            store.setSyncProgress(progress);
+        };
+
         const currentBrands = store.brands;
         const newBrands: Brand[] = [];
 
         for (const remoteBrand of remoteData) {
+            updateProgress(); // Brand processed (start)
             // Find existing brand to preserve local state if needed (like expanded)
             // or just overwrite. User said "delta operations... remove deleted, add added".
             // We'll perform a smart merge.
@@ -111,6 +125,7 @@ export const syncData = async () => {
                     ...p,
                     localImagePath: localPath
                 });
+                updateProgress(); // Product processed
             }
 
             newBrands.push({
@@ -123,6 +138,7 @@ export const syncData = async () => {
         store.setBrands(newBrands);
         store.setLastSynced(new Date().toISOString());
         store.setSyncStatus('success');
+        store.setSyncProgress(100); setTimeout(() => store.setSyncProgress(0), 2000);
 
     } catch (error) {
         console.error('Sync failed', error);

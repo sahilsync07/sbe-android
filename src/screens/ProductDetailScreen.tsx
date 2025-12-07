@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, TextInput, Dimensions } from 'react-native';
-import PagerView from 'react-native-pager-view';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, TextInput, Dimensions, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ImageViewing from 'react-native-image-viewing';
 import { useRoute, useNavigation } from '@react-navigation/native';
@@ -50,12 +49,7 @@ const GenericProductView = ({ product, onImagePress, onAddToCart }: { product: P
                         <Text style={styles.infoLabel}>Stock Available</Text>
                         <Text style={styles.infoValue}>{product.quantity}</Text>
                     </View>
-                    {product.rate > 0 && (
-                        <View style={[styles.infoBadge, { backgroundColor: theme.colors.surface }]}>
-                            <Text style={styles.infoLabel}>Rate</Text>
-                            <Text style={[styles.infoValue, { color: theme.colors.success }]}>₹{product.rate}</Text>
-                        </View>
-                    )}
+
                 </View>
 
                 <View style={styles.divider} />
@@ -131,21 +125,32 @@ const ProductDetailScreen = () => {
 
     return (
         <View style={styles.container}>
-            <PagerView
-                style={styles.pagerView}
-                initialPage={initialIndex}
-                onPageSelected={(e) => setSelectedIndex(e.nativeEvent.position)}
-            >
-                {products.map((p, index) => (
-                    <View key={index} style={styles.page}>
+            {/* Optimized with FlatList for paging */}
+            <FlatList
+                data={products}
+                keyExtractor={(item) => item.productName}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                initialScrollIndex={initialIndex}
+                getItemLayout={(data, index) => ({ length: width, offset: width * index, index })}
+                renderItem={({ item }) => (
+                    <View style={{ width: width, flex: 1 }}>
                         <GenericProductView
-                            product={p}
+                            product={item}
                             onImagePress={() => setIsImageViewVisible(true)}
-                            onAddToCart={(opt) => handleAddToCart(p, opt)}
+                            onAddToCart={(opt) => handleAddToCart(item, opt)}
                         />
                     </View>
-                ))}
-            </PagerView>
+                )}
+                onMomentumScrollEnd={(e) => {
+                    const index = Math.round(e.nativeEvent.contentOffset.x / width);
+                    setSelectedIndex(index);
+                }}
+                windowSize={3}
+                initialNumToRender={1}
+                maxToRenderPerBatch={1}
+            />
 
             <ImageViewing
                 images={images}

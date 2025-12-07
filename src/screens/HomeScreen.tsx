@@ -69,7 +69,7 @@ type ProductItem = { type: 'product'; product: Product; groupName: string };
 type ListItem = MetaHeaderItem | BrandHeaderItem | ProductItem;
 
 const HomeScreen = () => {
-    const { brands, toggleBrandCollapse, syncStatus, lastSynced } = useStore();
+    const { brands, toggleBrandCollapse, syncStatus, lastSynced, syncProgress } = useStore();
     const navigation = useNavigation<any>();
     const [searchQuery, setSearchQuery] = useState('');
     const [showOnlyImages, setShowOnlyImages] = useState(true);
@@ -265,6 +265,13 @@ const HomeScreen = () => {
                                 <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 10 }}>Last Synced</Text>
                                 <Text style={{ color: '#fff', fontSize: 10, fontWeight: 'bold' }}>
                                     {new Date(lastSynced).toLocaleDateString()} {new Date(lastSynced).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </Text>
+                            </View>
+                        )}
+                        {syncStatus === 'syncing' && (
+                            <View style={{ marginRight: 8, justifyContent: 'center' }}>
+                                <Text style={{ color: theme.colors.accent, fontSize: 12, fontWeight: 'bold' }}>
+                                    {syncProgress}%
                                 </Text>
                             </View>
                         )}
