@@ -102,7 +102,6 @@ const ProductDetailScreen = () => {
     const navigation = useNavigation<any>();
     const { product, groupName } = route.params;
     const store = useStore();
-    const cart = store.cart;
     const { showToast } = useToast();
 
     const brand = store.brands.find(b => b.groupName === groupName);
@@ -131,21 +130,9 @@ const ProductDetailScreen = () => {
             headerStyle: { backgroundColor: '#fff' },
             headerTintColor: theme.colors.secondary,
             headerTitleStyle: { fontWeight: 'bold' },
-            headerRight: () => (
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Cart')}
-                    style={{ marginRight: 0, padding: 5 }}
-                >
-                    <Icon name="shopping-cart" size={24} color={theme.colors.secondary} />
-                    {cart.length > 0 && (
-                        <View style={styles.headerCartBadge}>
-                            <Text style={styles.headerCartBadgeText}>{cart.length}</Text>
-                        </View>
-                    )}
-                </TouchableOpacity>
-            ),
+            headerRight: () => <HeaderCartButton />,
         });
-    }, [navigation, groupName, cart.length]);
+    }, [navigation, groupName]);
 
     return (
         <View style={styles.container}>

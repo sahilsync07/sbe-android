@@ -121,6 +121,10 @@ const HomeScreen = () => {
     };
 
     const handleUploadImage = async (product: Product) => {
+        if (uploadingProduct) {
+            showToast('Please wait for the current task to finish', 'info');
+            return;
+        }
         try {
             const image = await ImagePicker.openPicker({
                 mediaType: 'photo',
@@ -161,6 +165,10 @@ const HomeScreen = () => {
     };
 
     const handleRemoveImage = (product: Product) => {
+        if (uploadingProduct) {
+            showToast('Please wait for the current task to finish', 'info');
+            return;
+        }
         Alert.alert(
             'Remove Image',
             `Are you sure you want to remove the image for ${product.productName}?`,
