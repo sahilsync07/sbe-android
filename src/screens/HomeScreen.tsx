@@ -25,16 +25,18 @@ const toTitleCase = (str: string) => {
 
 // --- Configuration for Groups ---
 const PARAGON_SUBGROUPS = [
-    "Walkaholic",
+
     "VERTEX, SLICKERS & FENDER",
-    "Stimulus",
+    "EEKEN",
+    "PARAGON",
+    "Max",
     "Solea & Meriva , Mascara",
+    "Stimulus",
     "P-TOES",
     "Paralite",
     "PARAGON COMFY",
     "Paragon Blot",
-    "PARAGON",
-    "Max",
+    "Walkaholic",
     "Hawai Chappal",
 ];
 

@@ -5,13 +5,15 @@ import { useStore } from '../store/useStore';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { theme } from '../theme';
 
-export const HeaderCartButton = () => {
-    const navigation = useNavigation<any>();
+export const HeaderCartButton = ({ navigation: propNavigation }: { navigation?: any }) => {
+    const navHook = useNavigation<any>();
+    const navigation = propNavigation || navHook;
     const cart = useStore(state => state.cart);
 
     return (
         <TouchableOpacity
             onPress={() => {
+                console.log('Navigating to Cart');
                 // Ensure we navigate to Cart and not push it if already there (though unlikely in stack)
                 navigation.navigate('Cart');
             }}

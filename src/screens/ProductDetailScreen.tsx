@@ -130,7 +130,7 @@ const ProductDetailScreen = () => {
             headerStyle: { backgroundColor: '#fff' },
             headerTintColor: theme.colors.secondary,
             headerTitleStyle: { fontWeight: 'bold' },
-            headerRight: () => <HeaderCartButton />,
+            headerRight: () => <HeaderCartButton navigation={navigation} />,
         });
     }, [navigation, groupName]);
 
